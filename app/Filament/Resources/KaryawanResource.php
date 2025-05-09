@@ -26,14 +26,15 @@ class KaryawanResource extends Resource
 
     protected static ?string $navigationGroup = 'Kelola Data';
 
-    protected static ?string $slug = 'data-petani';
+    protected static ?string $slug = 'data-karyawan';
 
-    public static ?string $label = 'Kelola Karyawan';
+    public static ?string $label = 'Kelola Petani';
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                TextInput::make('nama_karyawan')
+                TextInput::make('nama')
                     ->required()
                     ->label('Nama')
                     ->placeholder('Masukan nama karyawan'),
@@ -57,7 +58,7 @@ class KaryawanResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('nama_karyawan')
+                TextColumn::make('nama')
                     ->searchable()
                     ->sortable()
                     ->label('Nama'),
@@ -79,7 +80,7 @@ class KaryawanResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

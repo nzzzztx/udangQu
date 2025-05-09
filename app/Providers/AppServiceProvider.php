@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Carbon\Carbon;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -11,7 +12,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // Tempat mendaftarkan service container binding atau third-party services
     }
 
     /**
@@ -19,6 +20,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Set lokal dan timezone default aplikasi
+        Carbon::setLocale('id');
+        date_default_timezone_set('Asia/Jakarta');
     }
 }

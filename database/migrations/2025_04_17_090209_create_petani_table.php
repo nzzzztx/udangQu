@@ -7,22 +7,22 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Jalankan migrasi.
      */
     public function up(): void
     {
         Schema::create('petani', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama_karyawan');
-            $table->string('jenis_kelamin');
-            $table->string('alamat_karyawan');
-            $table->integer('no_telepon');
-            $table->timestamps();
+            $table->id();  // ID petani
+            $table->string('nama');  // Nama petani
+            $table->string('jenis_kelamin');  // Jenis kelamin
+            $table->string('alamat_karyawan');  // Alamat petani
+            $table->string('no_telepon');  // Nomor telepon petani, ubah ke string jika panjangnya variatif
+            $table->timestamps();  // Timestamps untuk created_at dan updated_at
         });
     }
 
     /**
-     * Reverse the migrations.
+     * Batalkan migrasi.
      */
     public function down(): void
     {

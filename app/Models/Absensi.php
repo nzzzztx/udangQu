@@ -9,5 +9,16 @@ class Absensi extends Model
 {
     use HasFactory;
 
+    /**
+     * Kolom yang boleh diisi massal.
+     */
     protected $guarded = [];
+
+    /**
+     * Relasi ke model Karyawan.
+     */
+    public function karyawan()
+    {
+        return $this->belongsTo(Karyawan::class);
+    }
 }
