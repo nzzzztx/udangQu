@@ -10,5 +10,5 @@ Route::get('/laporan-gaji/pdf', [GajiController::class, 'exportPdf'])
 
 // Route default untuk halaman awal aplikasi
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/admin/login');
 });

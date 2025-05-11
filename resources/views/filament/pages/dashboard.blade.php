@@ -4,7 +4,8 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
 
         {{-- Jumlah Karyawan --}}
-        <x-filament::card class="min-h-[100px] border border-gray-200 dark:border-gray-700 shadow-sm transition hover:scale-[1.01] duration-150">
+        <x-filament::card
+            class="min-h-[100px] border border-gray-200 dark:border-gray-700 shadow-sm transition hover:scale-[1.01] duration-150">
             <div class="text-lg font-semibold text-gray-800 dark:text-gray-200">
                 Jumlah Karyawan
             </div>
@@ -14,7 +15,8 @@
         </x-filament::card>
 
         {{-- Absensi Hari Ini --}}
-        <x-filament::card class="min-h-[100px] border border-gray-200 dark:border-gray-700 shadow-sm transition hover:scale-[1.01] duration-150">
+        <x-filament::card
+            class="min-h-[100px] border border-gray-200 dark:border-gray-700 shadow-sm transition hover:scale-[1.01] duration-150">
             <div class="text-lg font-semibold text-gray-800 dark:text-gray-200">
                 Absensi Hari Ini
             </div>
@@ -24,7 +26,8 @@
         </x-filament::card>
 
         {{-- Persentase Kehadiran --}}
-        <x-filament::card class="min-h-[100px] border border-gray-200 dark:border-gray-700 shadow-sm transition hover:scale-[1.01] duration-150">
+        <x-filament::card
+            class="min-h-[100px] border border-gray-200 dark:border-gray-700 shadow-sm transition hover:scale-[1.01] duration-150">
             <div class="text-lg font-semibold text-gray-800 dark:text-gray-200">
                 Persentase Kehadiran
             </div>
@@ -34,7 +37,8 @@
         </x-filament::card>
 
         {{-- Tanggal Hari Ini --}}
-        <x-filament::card class="min-h-[100px] border border-gray-200 dark:border-gray-700 shadow-sm transition hover:scale-[1.01] duration-150">
+        <x-filament::card
+            class="min-h-[100px] border border-gray-200 dark:border-gray-700 shadow-sm transition hover:scale-[1.01] duration-150">
             <div class="text-lg font-semibold text-gray-800 dark:text-gray-200">
                 Tanggal Hari Ini
             </div>
@@ -49,7 +53,8 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
 
         {{-- Pemasukan Bulan Ini --}}
-        <x-filament::card class="min-h-[100px] border border-gray-200 dark:border-gray-700 shadow-sm transition hover:scale-[1.01] duration-150">
+        <x-filament::card
+            class="min-h-[100px] border border-gray-200 dark:border-gray-700 shadow-sm transition hover:scale-[1.01] duration-150">
             <div class="text-lg font-semibold text-gray-800 dark:text-gray-200">
                 Pemasukan Bulan Ini
             </div>
@@ -59,7 +64,8 @@
         </x-filament::card>
 
         {{-- Pengeluaran Bulan Ini --}}
-        <x-filament::card class="min-h-[100px] border border-gray-200 dark:border-gray-700 shadow-sm transition hover:scale-[1.01] duration-150">
+        <x-filament::card
+            class="min-h-[100px] border border-gray-200 dark:border-gray-700 shadow-sm transition hover:scale-[1.01] duration-150">
             <div class="text-lg font-semibold text-gray-800 dark:text-gray-200">
                 Pengeluaran Bulan Ini
             </div>
