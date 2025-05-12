@@ -54,7 +54,7 @@ class AbsensiResource extends Resource
                 // ->required()
                 //  ->native(false)
                  ->displayFormat('H:i')
-                ->label('Jam Masuk'),
+                ->label('Jam Keluar'),
 
             Select::make('keterangan_absensi')
                 ->label('Keterangan Absensi')

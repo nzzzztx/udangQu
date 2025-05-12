@@ -22,7 +22,7 @@ class TbKaryawanResource extends Resource
 {
     protected static ?string $model = Tb_karyawan::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-users';
 
     protected static ?string $navigationLabel = 'Data Karyawan';
 
