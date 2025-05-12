@@ -54,7 +54,7 @@
     <h1>Laporan Gaji</h1>
 
     <h2>Rekap Gaji Per Karyawan</h2>
-    
+
     <table>
         <thead>
             <tr>
@@ -77,7 +77,7 @@
     </table>
 
     <h3 class="total">
-        Total Gaji Keseluruhan: 
+        Total Gaji Keseluruhan:
         <span class="total-gaji">Rp {{ number_format($totalKeseluruhan, 0, ',', '.') }}</span>
     </h3>
 

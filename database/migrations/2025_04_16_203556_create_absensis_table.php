@@ -15,13 +15,17 @@ return new class extends Migration
             $table->id();
 
             // Relasi ke tabel 'petani' sebagai karyawan
-            $table->foreignId('karyawan_id')
-                  ->constrained('petani')
-                  ->onDelete('cascade');
+
+            $table->unsignedBigInteger('karyawan_id');
+            $table->foreign('karyawan_id')
+                ->references('karyawan_id')
+                ->on('tb_karyawans')
+                ->onDelete('cascade');
 
             // Tanggal dan jam absensi
             $table->date('tanggal_absensi');
             $table->time('jam_masuk');
+            $table->time('jam_keluar')->nullable();
 
             // Keterangan absensi opsional (misalnya hadir, izin, sakit)
             $table->string('keterangan_absensi')->nullable();

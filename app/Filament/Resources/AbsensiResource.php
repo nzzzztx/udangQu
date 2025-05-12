@@ -12,6 +12,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
+use Carbon\Carbon;
 
 class AbsensiResource extends Resource
 {
@@ -28,17 +29,31 @@ class AbsensiResource extends Resource
         return $form->schema([
             Select::make('karyawan_id')
                 ->label('Nama Karyawan')
-                ->relationship('karyawan', 'nama')
+                ->relationship('tb_karyawan', 'nama')
                 ->searchable()
+                ->required()
+                ->relationship(
+                    name: 'tb_karyawan',
+                    titleAttribute: 'nama',
+                    modifyQueryUsing: fn ($query) => $query->where('active_st', true),
+                ),
+
+            Forms\Components\DatePicker::make('tanggal_absensi')
+                ->label('Tanggal')
+                 ->default(Carbon::now())
                 ->required(),
 
-            TextInput::make('tanggal_absensi')
+            Forms\Components\TimePicker::make('jam_masuk')
                 ->required()
-                ->label('Tanggal Absensi'),
+                //  ->native(false)
+                 ->displayFormat('H:i')
+                 ->default(Carbon::now()->format('H:i'))
+                ->label('Jam Masuk'),
 
-            TextInput::make('jam_masuk')
-                ->required()
-                ->numeric()
+            Forms\Components\TimePicker::make('jam_keluar')
+                // ->required()
+                //  ->native(false)
+                 ->displayFormat('H:i')
                 ->label('Jam Masuk'),
 
             Select::make('keterangan_absensi')
@@ -56,7 +71,7 @@ class AbsensiResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('karyawan.nama')
+                TextColumn::make('tb_karyawan.nama')
                     ->label('Nama Karyawan')
                     ->searchable()
                     ->sortable(),
@@ -67,9 +82,17 @@ class AbsensiResource extends Resource
                 TextColumn::make('jam_masuk')
                     ->label('Jam Masuk'),
 
+                TextColumn::make('jam_keluar')
+                    ->label('Jam Keluar'),
+
                 TextColumn::make('keterangan_absensi')
                     ->label('Keterangan Absensi')
                     ->badge()
+                    ->formatStateUsing(fn ($state) => match ($state) {
+                        'hadir' => 'Hadir',
+                        'tidak hadir' => 'Tidak Hadir',
+                        default => ucfirst($state),
+                    })
                     ->color(fn ($state) => match ($state) {
                         'hadir' => 'success',
                         'tidak hadir' => 'danger',

@@ -17,8 +17,9 @@ class Absensi extends Model
     /**
      * Relasi ke model Karyawan.
      */
-    public function karyawan()
+    public function tb_karyawan()
     {
-        return $this->belongsTo(Karyawan::class);
+        return $this->belongsTo(Tb_karyawan::class, 'karyawan_id');
+        // return $this->belongsTo(Karyawan::class);
     }
 }

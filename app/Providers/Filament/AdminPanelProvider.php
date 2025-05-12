@@ -31,7 +31,7 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Amber,
             ])
-            
+
             // Discover resources, pages, widgets
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
@@ -41,13 +41,13 @@ class AdminPanelProvider extends PanelProvider
             ->pages([
                 \App\Filament\Pages\Dashboard::class,
             ])
-            
+
             // Manual register widgets
             ->widgets([
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
             ])
-            
+
             // Global middleware
             ->middleware([
                 EncryptCookies::class,
@@ -60,7 +60,7 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
-            
+
             // Auth middleware
             ->authMiddleware([
                 Authenticate::class,

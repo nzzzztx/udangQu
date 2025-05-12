@@ -30,9 +30,14 @@ class GajiResource extends Resource
         return $form->schema([
             Forms\Components\Select::make('karyawan_id')
                 ->label('Nama Karyawan')
-                ->relationship('karyawan', 'nama')
+                ->relationship('tb_karyawan', 'nama')
+                ->searchable()
                 ->required()
-                ->searchable(),
+                ->relationship(
+                    name: 'tb_karyawan',
+                    titleAttribute: 'nama',
+                    modifyQueryUsing: fn ($query) => $query->where('active_st', true),
+                ),
 
             Forms\Components\DatePicker::make('bulan')
                 ->label('Bulan Gaji')

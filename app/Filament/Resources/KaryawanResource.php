@@ -30,6 +30,12 @@ class KaryawanResource extends Resource
 
     public static ?string $label = 'Kelola Petani';
 
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false; //  menyembunyikan resource dari sidebar
+    }
+
+
     public static function form(Form $form): Form
     {
         return $form
