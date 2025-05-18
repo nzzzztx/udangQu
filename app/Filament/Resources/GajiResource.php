@@ -11,6 +11,9 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Actions\Action;
 use Illuminate\Support\Facades\URL;
+use App\Models\Absensi;
+
+use function Laravel\Prompts\form;
 
 class GajiResource extends Resource
 {
@@ -30,25 +33,81 @@ class GajiResource extends Resource
         return $form->schema([
             Forms\Components\Select::make('karyawan_id')
                 ->label('Nama Karyawan')
-                ->relationship('tb_karyawan', 'nama')
-                ->searchable()
-                ->required()
                 ->relationship(
                     name: 'tb_karyawan',
                     titleAttribute: 'nama',
                     modifyQueryUsing: fn ($query) => $query->where('active_st', true),
-                ),
-
-            Forms\Components\DatePicker::make('bulan')
+                )
+                ->searchable()
+                ->required(),
+    
+            Forms\Components\Select::make('bulan')
                 ->label('Bulan Gaji')
                 ->required()
-                ->format('Y-m'),
-
+                ->options([
+                    '01' => 'Januari',
+                    '02' => 'Februari',
+                    '03' => 'Maret',
+                    '04' => 'April',
+                    '05' => 'Mei',
+                    '06' => 'Juni',
+                    '07' => 'Juli',
+                    '08' => 'Agustus',
+                    '09' => 'September',
+                    '10' => 'Oktober',
+                    '11' => 'November',
+                    '12' => 'Desember',
+                ]),
+    
+            Forms\Components\Select::make('tahun')
+                ->label('Tahun Gaji')
+                ->required()
+                ->options(
+                    collect(range(2020, now()->year))
+                        ->mapWithKeys(fn ($year) => [$year => $year])
+                        ->toArray()
+                ),
+    
             Forms\Components\TextInput::make('total_gaji')
                 ->label('Total Gaji')
                 ->required()
                 ->numeric()
                 ->prefix('Rp'),
+
+
+            Forms\Components\TextInput::make('gaji_harian')
+                ->label('Gaji Harian')
+                ->numeric()
+                ->required(),
+                // ->reactive(),
+    
+            Forms\Components\TextInput::make('total_absen')
+                ->label('Total Absen')
+                ->numeric()
+                ->required()
+                ->reactive(),
+                // ->afterStateUpdated(function (callable $set, $state, $get) {
+                //     $karyawanId = $get('karyawan_id');
+                //     $bulan = $get('bulan');
+                //     $tahun = $get('tahun');
+    
+                //     // Hitung total absensi dari tabel absensi
+                //     $totalAbsensi = Absensi::table('absensi')
+                //         ->where('karyawan_id', $karyawanId)
+                //         ->where('bulan', $bulan)
+                //         ->where('tahun', $tahun)
+                //         ->count();
+    
+                //     // Set nilai total absensi
+                //     $set('total_absensi', $totalAbsensi);
+    
+                //     // Hitung total gaji
+                //     $gajiPerHari = $get('gaji_per_hari');
+                //     $totalGaji = $totalAbsensi * $gajiPerHari;
+    
+                //     // Set nilai total gaji
+                //     $set('total_gaji', $totalGaji);
+                // }), 
         ]);
     }
 
@@ -56,40 +115,67 @@ class GajiResource extends Resource
      * Menentukan tabel yang menampilkan data Gaji
      */
     public static function table(Table $table): Table
-    {
-        return $table
-            ->columns([
-                Tables\Columns\TextColumn::make('karyawan.nama')
-                    ->label('Karyawan')
-                    ->searchable(),
+{
+    return $table
+        ->columns([
+            Tables\Columns\TextColumn::make('karyawan.nama')
+                ->label('Karyawan')
+                ->searchable(),
 
-                Tables\Columns\TextColumn::make('bulan')
-                    ->label('Bulan')
-                    ->date('F Y'),
+            Tables\Columns\TextColumn::make('bulan')
+                ->label('Bulan')
+                ->formatStateUsing(fn ($state) => match ($state) {
+                    '01' => 'Januari',
+                    '02' => 'Februari',
+                    '03' => 'Maret',
+                    '04' => 'April',
+                    '05' => 'Mei',
+                    '06' => 'Juni',
+                    '07' => 'Juli',
+                    '08' => 'Agustus',
+                    '09' => 'September',
+                    '10' => 'Oktober',
+                    '11' => 'November',
+                    '12' => 'Desember',
+                    default => '-',
+                }),
 
-                Tables\Columns\TextColumn::make('total_gaji')
-                    ->label('Total Gaji')
-                    ->money('IDR'),
-            ])
-            ->filters([
-                // Tambahkan filter jika diperlukan
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
-                // Tambahkan aksi untuk mencetak laporan PDF
-                Action::make('Cetak Laporan Gaji')
-                    ->url(fn () => URL::route('laporan.gaji.pdf'))
-                    ->openUrlInNewTab()
-                    ->icon('heroicon-o-printer')
-                    ->label('Cetak Laporan Gaji')
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
-    }
+            Tables\Columns\TextColumn::make('tahun')
+                ->label('Tahun')
+                ->date('Y'),
+
+            Tables\Columns\TextColumn::make('total_gaji')
+                ->label('Total Gaji')
+                ->money('IDR'),
+            
+            Tables\Columns\TextColumn::make('gaji_harian')
+                ->label('Gaji Harian')
+                ->money('IDR'),
+
+            Tables\Columns\TextColumn::make('total_absen')
+                ->label('Total Absen')
+                ->required()
+                ->numeric(),
+        ])
+        ->filters([
+            // Tambahkan filter jika diperlukan
+        ])
+        ->actions([
+            Tables\Actions\EditAction::make(),
+            Tables\Actions\DeleteAction::make(),
+            Action::make('Cetak Laporan Gaji')
+                ->url(fn () => URL::route('laporan.gaji.pdf'))
+                ->openUrlInNewTab()
+                ->icon('heroicon-o-printer')
+                ->label('Cetak Laporan Gaji'),
+        ])
+        ->bulkActions([
+            Tables\Actions\BulkActionGroup::make([
+                Tables\Actions\DeleteBulkAction::make(),
+            ]),
+        ]);
+}
+
 
     /**
      * Menentukan relasi untuk resource ini

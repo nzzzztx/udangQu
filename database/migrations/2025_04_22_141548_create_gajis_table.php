@@ -14,8 +14,11 @@ return new class extends Migration
         Schema::create('gajis', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('karyawan_id'); // <-- harus ada ini dulu
-            $table->date('bulan');
+            $table->string('bulan');
+            $table->string('tahun');
+            $table->integer('total_absen')->nullable();
             $table->decimal('total_gaji', 10, 2);
+            $table->string('gaji_harian')->nullable();
             $table->timestamps();
         
             // foreign key-nya ditaruh setelah kolom dibuat
