@@ -14,7 +14,7 @@ class Gaji extends Model
 
     public function tb_karyawan()
     {
-        return $this->belongsTo(Tb_karyawan::class, 'karyawan_id');
+        return $this->belongsTo(Tb_karyawan::class, 'karyawan_id', 'karyawan_id');
         // return $this->belongsTo(Karyawan::class);
     }
 

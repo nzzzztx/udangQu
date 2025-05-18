@@ -20,11 +20,12 @@ return new class extends Migration
             $table->decimal('total_gaji', 10, 2);
             $table->string('gaji_harian')->nullable();
             $table->timestamps();
-        
+
             // foreign key-nya ditaruh setelah kolom dibuat
-            $table->foreign('karyawan_id')->references('id')->on('petani')->onDelete('cascade');
+            $table->foreign('karyawan_id')->references('karyawan_id')->on('tb_karyawans')->onDelete('cascade');
+            // $table->foreign('karyawan_id')->references('id')->on('petani')->onDelete('cascade');
         });
-        
+
     }
 
 
