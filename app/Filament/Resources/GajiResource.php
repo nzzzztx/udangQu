@@ -117,26 +117,12 @@ class GajiResource extends Resource
                                 $set('total_gaji', $gajiPerHari * $totalAbsen);
                             })
                     )
-                ->afterStateUpdated(function ($state, callable $set, callable $get) {
-                    $gajiPerHari = $get('gaji_harian');
-                    if (is_numeric($state) && is_numeric($gajiPerHari)) {
-                        $set('total_gaji', $state * $gajiPerHari);
-                    }
+                    ->afterStateUpdated(function ($state, callable $set, callable $get) {
+                        $gajiPerHari = $get('gaji_harian');
+                        if (is_numeric($state) && is_numeric($gajiPerHari)) {
+                            $set('total_gaji', $state * $gajiPerHari);
+                        }
                 }),
-
-
-                // Forms\Components\TextInput::make('total_absen')
-                //     ->label('Total Absen')
-                //     ->numeric()
-                //     ->required()
-                //     ->reactive()
-                //     ->default(0)
-                //     ->afterStateUpdated(function ($state, callable $set, callable $get) {
-                //         $harian = $get('gaji_harian');
-                //         if (is_numeric($state) && is_numeric($harian)) {
-                //             $set('total_gaji', $state * $harian);
-                //         }
-                // }),
 
                 Forms\Components\TextInput::make('total_gaji')
                     ->label('Total Gaji')
@@ -145,28 +131,6 @@ class GajiResource extends Resource
                     ->prefix('Rp')
                     ->default(0)
                     ->readOnly(),
-                // ->afterStateUpdated(function (callable $set, $state, $get) {
-                //     $karyawanId = $get('karyawan_id');
-                //     $bulan = $get('bulan');
-                //     $tahun = $get('tahun');
-
-                //     // Hitung total absensi dari tabel absensi
-                //     $totalAbsensi = Absensi::table('absensi')
-                //         ->where('karyawan_id', $karyawanId)
-                //         ->where('bulan', $bulan)
-                //         ->where('tahun', $tahun)
-                //         ->count();
-
-                //     // Set nilai total absensi
-                //     $set('total_absensi', $totalAbsensi);
-
-                //     // Hitung total gaji
-                //     $gajiPerHari = $get('gaji_per_hari');
-                //     $totalGaji = $totalAbsensi * $gajiPerHari;
-
-                //     // Set nilai total gaji
-                //     $set('total_gaji', $totalGaji);
-                // }),
         ]);
     }
 
