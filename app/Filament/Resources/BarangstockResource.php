@@ -19,8 +19,8 @@ class BarangstockResource extends Resource
 {
     protected static ?string $model = Barangstock::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $navigationLabel = 'Data Barang Stock';
+    protected static ?string $navigationIcon = 'heroicon-o-archive-box';
+    protected static ?string $navigationLabel = 'Data Barang';
     protected static ?string $navigationGroup = 'Kelola Data';
     protected static ?string $slug = 'data-barang-stock';
     public static ?string $label = 'Kelola Barang Stock';

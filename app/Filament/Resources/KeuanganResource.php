@@ -17,7 +17,7 @@ class KeuanganResource extends Resource
 {
     protected static ?string $model = Keuangan::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-banknotes';
 
     protected static ?string $navigationLabel = 'Data Keuangan';
 

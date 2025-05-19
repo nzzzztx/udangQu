@@ -22,14 +22,14 @@ class TransaksistockResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $navigationLabel = 'Data Transaksi Stock';
+    protected static ?string $navigationLabel = 'Data Transaksi ';
 
     protected static ?string $navigationGroup = 'Kelola Data';
 
     protected static ?string $slug = 'data-transaksi-stock';
 
     public static ?string $label = 'Kelola Transaksi Stock';
-    
+
 
     public static function form(Form $form): Form
     {
