@@ -26,7 +26,7 @@ class TbKaryawanResource extends Resource
 
     protected static ?string $navigationLabel = 'Data Karyawan';
 
-    protected static ?string $navigationGroup = 'Kelola Data';
+    protected static ?string $navigationGroup = 'Master Data';
 
     public static ?string $label = 'Kelola Karyawan';
 

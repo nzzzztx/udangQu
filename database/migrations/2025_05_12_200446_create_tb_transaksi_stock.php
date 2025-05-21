@@ -18,16 +18,19 @@ return new class extends Migration
                 ->references('barang_id')
                 ->on('tb_barang')
                 ->onDelete('cascade');
-            
+
             $table->unsignedBigInteger('karyawan_id');
             $table->foreign('karyawan_id')
                     ->references('karyawan_id')
                     ->on('tb_karyawans')
                     ->onDelete('cascade');
-                
-            $table->date('tanggal_stock');
+
+            $table->date('tanggal_transaksi');
+            $table->integer('jumlah_barang');
+            $table->integer('harga_barang');
             $table->integer('jumlah_stock');
-            $table->string('catatan'); 
+            $table->integer('sisa_stock');
+            $table->string('catatan');
             $table->timestamps();
         });
     }

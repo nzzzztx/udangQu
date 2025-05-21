@@ -21,7 +21,7 @@ class BarangstockResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-archive-box';
     protected static ?string $navigationLabel = 'Data Barang';
-    protected static ?string $navigationGroup = 'Kelola Data';
+    protected static ?string $navigationGroup = 'Master Data';
     protected static ?string $slug = 'data-barang-stock';
     public static ?string $label = 'Kelola Barang Stock';
 
@@ -33,7 +33,7 @@ class BarangstockResource extends Resource
                     ->required()
                     ->label('Nama Barang')
                     ->placeholder('Masukan nama barang'),
-                
+
                 Forms\Components\DatePicker::make('tanggal_stock')
                     ->label('Tanggal Stock')
                     ->default(now())
@@ -50,14 +50,14 @@ class BarangstockResource extends Resource
                         'box' => 'Box',
                         'gram' => 'Gram',
                     ]),
-                
+
                 Forms\Components\TextInput::make('jumlah_stock')
                     ->label('Jumlah Stock')
                     ->required()
                     ->numeric()
                     ->minValue(0)
                     ->placeholder('Masukan jumlah Stock'),
-                
+
                 Forms\Components\TextInput::make('harga_barang')
                     ->label('Harga Barang')
                     ->required()
@@ -88,8 +88,8 @@ class BarangstockResource extends Resource
                     ->searchable()
                     ->toggleable(),
 
-                Tables\Columns\TextColumn::make('jumlah_satuan')
-                    ->label('Jumlah Satuan')
+                Tables\Columns\TextColumn::make('satuan')
+                    ->label('Satuan')
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
