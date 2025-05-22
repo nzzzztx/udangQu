@@ -79,6 +79,9 @@ class TbKaryawanResource extends Resource
     {
         return $table
                 ->columns([
+                TextColumn::make('qr_code')
+                    ->label('QR Code'),
+                    
                 TextColumn::make('nama')
                     ->label('Nama')
                     ->searchable()

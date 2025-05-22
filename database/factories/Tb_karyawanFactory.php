@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Tb_karyawan;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Tb_karyawan>
@@ -26,6 +27,7 @@ class Tb_karyawanFactory extends Factory
             'jenis_kelamin' => $this->faker->randomElement(['Laki-laki', 'Perempuan']),
             'alamat_karyawan' => $this->faker->address(),
             'no_telepon' => $this->faker->phoneNumber(),
+            'qr_code' => Str::random(12),
             'active_st' => $this->faker->boolean(80), // 80% kemungkinan true
         ];
 

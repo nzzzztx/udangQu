@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('jenis_kelamin');  // Jenis kelamin
             $table->string('alamat_karyawan');  // Alamat petani
             $table->string('no_telepon');
+            $table->string('qr_code')->nullable();  // QR Code
             $table->boolean('active_st');
             $table->timestamps();
         });

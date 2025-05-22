@@ -13,11 +13,11 @@ class GajiController extends Controller
     public function exportPdf()
     {
         // Ambil semua data gaji beserta relasi karyawan
-        $gajiSemua = Gaji::with('karyawan')->get();
+        $gajiSemua = Gaji::with('tb_karyawan')->get();
 
         // Kelompokkan data: Nama Karyawan → Bulan → Total Gaji per Bulan
         $gajiPerKaryawan = $gajiSemua->groupBy(function ($gaji) {
-                return $gaji->karyawan->nama;
+                return $gaji->tb_karyawan->nama;
             })->map(function ($gajiKaryawan) {
                 return $gajiKaryawan->groupBy('bulan')
                     ->map(function ($gajiPerBulan) {
