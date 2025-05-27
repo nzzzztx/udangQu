@@ -17,6 +17,9 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Radio;
+use Filament\Tables\Columns\ViewColumn;
+use Filament\Tables\Columns\HtmlColumn;
+use Illuminate\Support\HtmlString;
 
 class TbKaryawanResource extends Resource
 {
@@ -79,9 +82,11 @@ class TbKaryawanResource extends Resource
     {
         return $table
                 ->columns([
-                TextColumn::make('qr_code')
-                    ->label('QR Code'),
-                    
+                // ViewColumn::make('qr_code')
+                //     ->label('QR Code')
+                //     ->view('filament.tables.columns.qr-code')
+                //     ,
+
                 TextColumn::make('nama')
                     ->label('Nama')
                     ->searchable()
@@ -117,6 +122,18 @@ class TbKaryawanResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('qr_code')
+                    ->label('QR Code')
+                    ->icon('heroicon-o-qr-code')
+                    ->color('secondary')
+                    ->disabledForm()
+                    ->modalButton('Tutup')
+                    ->modalHeading(fn ($record) => 'QR - ' . $record->nama)
+                    ->modalContent(fn ($record) => view('filament.tables.columns.qr-code', [
+                        'qrText' => $record->qr_code ?? 'tes',
+                        'karyawan_id' => $record->karyawan_id,
+                    ]))
+                    ->modalWidth('md'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
