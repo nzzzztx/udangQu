@@ -4,6 +4,9 @@
     </script>
 @endif
 
+{{-- ✅ Tambahkan favicon --}}
+<link rel="icon" type="image/png" href="{{ asset('images/logo-pandemo.png') }}">
+
 @foreach ($assets as $asset)
     @if (! $asset->isLoadedOnRequest())
         {{ $asset->getHtml() }}
@@ -12,49 +15,44 @@
 
 <style>
     :root {
-        @foreach ($cssVariables ?? [] as $cssVariableName => $cssVariableValue) --{{ $cssVariableName }}:{{ $cssVariableValue }}; @endforeach
+        @foreach ($cssVariables ?? [] as $cssVariableName => $cssVariableValue)
+            --{{ $cssVariableName }}:{{ $cssVariableValue }};
+        @endforeach
     }
 </style>
+
 @once
     @push('scripts')
-        {{-- <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script> --}}
-
+        {{-- Script QR code styling --}}
         <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
-       <script>
-    document.addEventListener('alpine:init', () => {
-        let modalWasOpen = false;
 
-        setInterval(() => {
-            const modal = document.querySelector('.fi-modal');
+        <script>
+            document.addEventListener('alpine:init', () => {
+                let modalWasOpen = false;
 
-            if (modal) {
-                const isOpen = modal.classList.contains('fi-modal-open');
+                setInterval(() => {
+                    const modal = document.querySelector('.fi-modal');
 
-                if (isOpen && !modalWasOpen) {
-                    // console.log('[Modal] Dibuka');
-                    modalWasOpen = true;
-                }
+                    if (modal) {
+                        const isOpen = modal.classList.contains('fi-modal-open');
 
-                if (!isOpen && modalWasOpen) {
-                    // console.log('[Modal] Ditutup, reload halaman...');
-                    const videoEl = document.querySelector('#qr-reader video');
-                    if (videoEl && videoEl.srcObject) {
-                        videoEl.srcObject.getTracks().forEach(track => track.stop());
-                        // console.log('[Scanner] Kamera dimatikan manual.');
+                        if (isOpen && !modalWasOpen) {
+                            modalWasOpen = true;
+                        }
+
+                        if (!isOpen && modalWasOpen) {
+                            const videoEl = document.querySelector('#qr-reader video');
+                            if (videoEl && videoEl.srcObject) {
+                                videoEl.srcObject.getTracks().forEach(track => track.stop());
+                            }
+                            modalWasOpen = false;
+                        }
+                    } else {
+                        console.log('[Modal] Tidak ditemukan');
                     }
-                    modalWasOpen = false;
-                    // setTimeout(() => location.reload(), 500);
-                }
-            } else {
-                console.log('[Modal] Tidak ditemukan');
-            }
-        }, 1000);
-    });
-</script>
-
-
-
+                }, 1000);
+            });
+        </script>
     @endpush
 @endonce
-
