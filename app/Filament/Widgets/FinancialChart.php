@@ -11,6 +11,8 @@ class FinancialChart extends ChartWidget
 {
     protected static ?string $heading = 'Grafik Keuangan';
     public ?int $tahun = null;
+    protected array $data = [];
+
 
     protected function getData(): array
     {
@@ -78,4 +80,6 @@ class FinancialChart extends ChartWidget
                 ->afterStateUpdated(fn () => $this->updateChartData()),
         ];
     }
+
+
 }

@@ -80,7 +80,7 @@
     <div class="mt-10">
         <x-filament::card class="border border-gray-200 dark:border-gray-700 shadow-sm">
             <div class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">
-                Grafik Keuangan
+                {{-- Grafik Keuangan --}}
             </div>
 
             @livewire(\App\Filament\Widgets\FinancialChart::class)

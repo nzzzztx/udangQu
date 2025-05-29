@@ -17,7 +17,7 @@ class AbsensiScanController extends Controller
             return response()->json(['message' => 'QR Code tidak valid'], 400);
         }
 
-        $karyawan = \App\Models\Tb_karyawan::where('qr_code', $qrCode)->first();
+        $karyawan = \App\Models\Tb_karyawan::where('qr_code', $qrCode)->where('active_st', 1)->first();
 
         if (!$karyawan) {
             return response()->json(['message' => 'Karyawan tidak ditemukan'], 404);

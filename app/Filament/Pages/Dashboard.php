@@ -2,7 +2,7 @@
 
 namespace App\Filament\Pages;
 
-use App\Models\Karyawan;
+use App\Models\Tb_karyawan;
 use App\Models\Absensi;
 use App\Models\Keuangan;
 use Carbon\Carbon;
@@ -19,7 +19,7 @@ class Dashboard extends Page
      */
     public function getJumlahKaryawan(): int
     {
-        return Karyawan::count();
+        return Tb_karyawan::where('active_st', 1)->count();
     }
 
     /**
@@ -27,7 +27,7 @@ class Dashboard extends Page
      */
     public function getAbsensiHariIni(): int
     {
-        return Absensi::whereDate('tanggal_absensi', Carbon::today())->count();
+        return Absensi::whereDate('tanggal_absensi', Carbon::today())->where('keterangan_absensi', 'hadir')->count();
     }
 
     /**
