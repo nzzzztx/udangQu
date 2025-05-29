@@ -1,11 +1,6 @@
-<!-- ✅ Ganti dengan versi qrcode.js (bukan .min.js) -->
 
-{{-- <div class="inline-flex items-center justify-center flex-col" x-data="{ qrText: @js($qrText) }">
-    <img  id="qrImage" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6AQMAAACyIsh+AAAABlBMVEX///8AAABVwtN+AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA+0lEQVRoge3YyRGDMAwFUM24AEpy65REAZ5RbEleIMQLuXD4OiQgv5PwIiBCIF4XG1vs8Yr8QZQTAWAN2D/v5AzspwGAeSBllbT9bFJ5gKcgpwH+BWnSUvdZAAyApSNgHuwPAB1QjySZr6FzZgH0QBM2aX8HwAA0693HC6NbAFgCG+cCl40g7QGRAjwBTle8ppuuE2AepDF5/yGduaJK+QHmgY7lNlMaJj4cwDpoaCi90mWnBZgBtU3Se1cqD7AISutel/9hHzsAFgFfX8yJNAfwDKQ7r3vofakBJoFM3+aE+n4WAAMgUUutR5JngEVwPpJuSg0wBxCIV8UHFY2o1XyJ7FMAAAAASUVORK5CYII=" alt="QR Code">
-</div> --}}
-<!-- Pastikan script QRCode sudah terload -->
-<!-- ✅ Gunakan CDN yang benar-benar expose QRCode -->
-<script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.js"></script>
+<!-- Script QRCode  -->
+{{-- <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.js"></script>
 <div
     x-data="{
         qrText: @js($qrText) +'karyawan id:'+@js($karyawan_id),
@@ -74,4 +69,58 @@
         </svg>
         Download QR Code
     </button>
+</div> --}}
+
+<div
+    x-data="() => ({
+        qrText: @js($qrText),
+        qrCode: null,
+
+        initQR() {
+            this.qrCode = new QRCodeStyling({
+                width: 300,
+                height: 300,
+                type: 'canvas',
+                data: this.qrText,
+                image: '', // optional logo
+                margin: 10,
+                dotsOptions: {
+                    color: '#000',
+                    type: 'square'
+                },
+                // cornersSquareOptions: {
+                //     type: 'extra-rounded' // or 'dot', 'square'
+                // },
+                backgroundOptions: {
+                    color: '#fff',
+                }
+            });
+
+            this.qrCode.append(document.getElementById('qrcode-container'));
+
+            // Generate image for download
+            this.qrCode.getRawData('png').then(blob => {
+                const img = document.getElementById('qrImage');
+                img.src = URL.createObjectURL(blob);
+            });
+        },
+
+        downloadQR() {
+            this.qrCode.download({ name: 'qr_code', extension: 'png' });
+        }
+    })"
+    x-init="initQR"
+    class="inline-flex items-center justify-center flex-col"
+>
+    <div id="qrcode-container" class="hidden"></div>
+    <img id="qrImage" alt="QR Code" class="rounded shadow w-[250px] h-[250px]" />
+
+    <button
+        type="button"
+        @click="downloadQR"
+        class="text-blue-600 hover:text-blue-800 text-sm mt-2"
+    >
+        Download QR Code
+    </button>
 </div>
+

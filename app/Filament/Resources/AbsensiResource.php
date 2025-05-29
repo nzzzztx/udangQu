@@ -36,7 +36,8 @@ class AbsensiResource extends Resource
                     name: 'tb_karyawan',
                     titleAttribute: 'nama',
                     modifyQueryUsing: fn ($query) => $query->where('active_st', true),
-                ),
+                )
+                ,
 
             Forms\Components\DatePicker::make('tanggal_absensi')
                 ->label('Tanggal')
@@ -99,6 +100,7 @@ class AbsensiResource extends Resource
                         default => 'secondary',
                     }),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -124,4 +126,5 @@ class AbsensiResource extends Resource
             'edit' => Pages\EditAbsensi::route('/{record}/edit'),
         ];
     }
+
 }

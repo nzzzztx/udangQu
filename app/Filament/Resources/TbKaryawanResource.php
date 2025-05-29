@@ -82,10 +82,6 @@ class TbKaryawanResource extends Resource
     {
         return $table
                 ->columns([
-                // ViewColumn::make('qr_code')
-                //     ->label('QR Code')
-                //     ->view('filament.tables.columns.qr-code')
-                //     ,
 
                 TextColumn::make('nama')
                     ->label('Nama')
@@ -127,9 +123,10 @@ class TbKaryawanResource extends Resource
                     ->icon('heroicon-o-qr-code')
                     ->color('secondary')
                     ->disabledForm()
-                    ->modalButton('Tutup')
+                    // ->modalButton('Tutup')
+                     ->modalSubmitAction(false)
                     ->modalHeading(fn ($record) => 'QR - ' . $record->nama)
-                    ->modalContent(fn ($record) => view('filament.tables.columns.qr-code', [
+                    ->modalContent(fn ($record) => view('filament.modals.content.qr-code', [
                         'qrText' => $record->qr_code ?? 'tes',
                         'karyawan_id' => $record->karyawan_id,
                     ]))
