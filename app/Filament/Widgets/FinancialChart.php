@@ -19,13 +19,13 @@ class FinancialChart extends ChartWidget
         $tahun = $this->tahun ?? now()->year;
 
         $data = Keuangan::selectRaw("
-                strftime('%m', tanggal) as bulan,
+                MONTH(tanggal) as bulan,
                 SUM(CASE WHEN jenis = 'masuk' THEN jumlah ELSE 0 END) as pemasukan,
                 SUM(CASE WHEN jenis = 'keluar' THEN jumlah ELSE 0 END) as pengeluaran
             ")
             ->whereYear('tanggal', $tahun)
-            ->groupByRaw("strftime('%m', tanggal)")
-            ->orderByRaw("strftime('%m', tanggal)")
+            ->groupByRaw("MONTH(tanggal)")
+            ->orderByRaw("MONTH(tanggal)")
             ->get();
 
         $months = collect(range(1, 12));

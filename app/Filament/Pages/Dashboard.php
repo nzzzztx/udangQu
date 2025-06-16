@@ -38,6 +38,8 @@ class Dashboard extends Page
         $totalKaryawan = $this->getJumlahKaryawan();
         $jumlahHadir = Absensi::whereDate('tanggal_absensi', Carbon::today())
             ->where('keterangan_absensi', 'hadir')
+            ->whereNotNull('jam_masuk')
+            ->whereNotNull('jam_keluar')
             ->count();
 
         if ($totalKaryawan === 0) {

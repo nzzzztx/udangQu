@@ -108,7 +108,9 @@ class GajiResource extends Resource
                                     ->where('karyawan_id', $karyawanId)
                                     ->whereMonth('tanggal_absensi', $bulanInt)
                                     ->whereYear('tanggal_absensi', $tahun)
-                                    ->where('keterangan_absensi', 'hadir') // sesuaikan jika perlu
+                                    ->where('keterangan_absensi', 'hadir')
+                                    ->whereNotNull('jam_masuk')
+                                    ->whereNotNull('jam_keluar')
                                     ->count();
                                 // dd($totalAbsen);
                                 $set('total_absen', $totalAbsen);
@@ -122,7 +124,7 @@ class GajiResource extends Resource
                         if (is_numeric($state) && is_numeric($gajiPerHari)) {
                             $set('total_gaji', $state * $gajiPerHari);
                         }
-                }),
+                    }),
 
                 Forms\Components\TextInput::make('total_gaji')
                     ->label('Total Gaji')
@@ -187,7 +189,7 @@ class GajiResource extends Resource
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
                 Action::make('Cetak Laporan Gaji')
-                    ->url(fn () => URL::route('laporan.gaji.pdf'))
+                    ->url(fn ($record) => URL::route('laporan.gaji.pdf', ['id' => $record->id]))
                     ->openUrlInNewTab()
                     ->icon('heroicon-o-printer')
                     ->label('Cetak Laporan Gaji'),
