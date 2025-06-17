@@ -295,7 +295,7 @@
         </tr>
         <tr>
             <td class="left"><br><br><br><br><br><span class="bold">(..................................)</span></td>
-            <td class="right">Di Terima Oleh :<br><br><br><br><br> (Hani Hadiyanti)</td>
+            <td class="right">Di Terima Oleh :<br><br><br><br><br> {{ $data->nama }}</td>
         </tr>
     </table>
 
